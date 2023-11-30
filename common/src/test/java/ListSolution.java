@@ -1,6 +1,9 @@
 public class ListSolution {
 
 
+    /**
+     * 环形链表
+     */
     public boolean hasCycle(ListNode head) {
         if (head == null || head.next == null) {
             return false;
