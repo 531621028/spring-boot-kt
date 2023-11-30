@@ -1,5 +1,27 @@
 public class ListSolution {
 
+
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        ListNode p1 = head;
+        ListNode p2 = head.next;
+        while (p1 != null && p2 != null) {
+            if (p1 == p2) {
+                return true;
+            }
+            p1 = p1.next;
+            p2 = p2.next;
+            if (p2 != null) {
+                p2 = p2.next;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         // 新建一个头节点，只标记，无实际作用
         ListNode result = new ListNode();
@@ -30,14 +52,18 @@ public class ListSolution {
 
     public static void main(String[] args) {
         ListSolution solution = new ListSolution();
-        ListNode list1 = solution.buildNode(new int[]{
-            1
+        // ListNode list1 = solution.buildNode(new int[]{
+        //     1
+        // });
+        // ListNode list2 = solution.buildNode(new int[]{
+        //     2
+        // });
+        // ListNode listNode = solution.mergeTwoLists(list1, list2);
+        // solution.print(listNode);
+        ListNode head = solution.buildNode(new int[]{
+            3, 2, 0, -4
         });
-        ListNode list2 = solution.buildNode(new int[]{
-            2
-        });
-        ListNode listNode = solution.mergeTwoLists(list1, list2);
-        solution.print(listNode);
+        System.out.println(solution.hasCycle(head));
     }
 
     private void print(ListNode list) {
