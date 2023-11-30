@@ -7,7 +7,49 @@ import java.util.Set;
 
 public class TreeSolution {
 
+    public static void main(String[] args) {
+        TreeSolution solution = new TreeSolution();
+        TreeNode root = buildTreeNode(new Integer[]{
+            // 1, 2, 2, null, 3, null, 3
+            3, 9, 20, null, null, 15, 7
+        });
+        // System.out.println(Arrays.toString(solution.inorderTraversal(root).toArray()));
+        // System.out.println(solution.isSymmetric(root));
+        System.out.println(solution.maxDepth(root));
+    }
 
+    /**
+     * 二叉树的最大深度
+     */
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.addFirst(root);
+        int maxLevel = 0;
+        while (!deque.isEmpty()) {
+            maxLevel++;
+            Deque<TreeNode> tempQueue = new LinkedList<>();
+            deque.forEach(treeNode -> {
+                if (treeNode.left != null) {
+                    tempQueue.add(treeNode.left);
+
+                }
+                if (treeNode.right != null) {
+                    tempQueue.add(treeNode.right);
+                }
+            });
+            deque.clear();
+            deque.addAll(tempQueue);
+        }
+        return maxLevel;
+    }
+
+
+    /**
+     * 对称二叉树
+     */
     public boolean isSymmetric(TreeNode root) {
         if (root == null) {
             return true;
@@ -45,7 +87,9 @@ public class TreeSolution {
         return leftQueue.isEmpty() && rightQueue.isEmpty();
     }
 
-
+    /**
+     * 二叉树中序遍历
+     */
     public List<Integer> inorderTraversal(TreeNode root) {
         if (root == null) {
             return new ArrayList<>();
@@ -68,16 +112,6 @@ public class TreeSolution {
             readNode.add(node);
         }
         return result;
-    }
-
-    public static void main(String[] args) {
-        TreeSolution solution = new TreeSolution();
-        TreeNode root = buildTreeNode(new Integer[]{
-            // 1, 2, 2, null, 3, null, 3
-            1, 2, 2, 3, 4, 4, 3
-        });
-        // System.out.println(Arrays.toString(solution.inorderTraversal(root).toArray()));
-        System.out.println(solution.isSymmetric(root));
     }
 
     private static TreeNode buildTreeNode(Integer[] nodes) {
