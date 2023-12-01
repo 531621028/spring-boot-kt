@@ -19,6 +19,19 @@ public class TreeSolution {
     }
 
     /**
+     * 反转二叉树
+     */
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode temp = root.left;
+        root.left = invertTree(root.right);
+        root.right = invertTree(temp);
+        return root;
+    }
+
+    /**
      * 二叉树的最大深度
      */
     public int maxDepth(TreeNode root) {
