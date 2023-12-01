@@ -17,6 +17,18 @@ public class ListSolution {
         System.out.println(solution.hasCycle(head));
     }
 
+    public ListNode reverseList(ListNode head) {
+        ListNode result = new ListNode();
+        ListNode p = head;
+        while (p != null) {
+            ListNode next = p.next;
+            p.next = result.next;
+            result.next = p;
+            p = next;
+        }
+        return result.next;
+    }
+
 
     /**
      * 相交链表
