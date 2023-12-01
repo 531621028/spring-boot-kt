@@ -1,6 +1,64 @@
 public class ListSolution {
 
 
+    public static void main(String[] args) {
+        ListSolution solution = new ListSolution();
+        // ListNode list1 = solution.buildNode(new int[]{
+        //     1
+        // });
+        // ListNode list2 = solution.buildNode(new int[]{
+        //     2
+        // });
+        // ListNode listNode = solution.mergeTwoLists(list1, list2);
+        // solution.print(listNode);
+        ListNode head = solution.buildNode(new int[]{
+            3, 2, 0, -4
+        });
+        System.out.println(solution.hasCycle(head));
+    }
+
+
+    /**
+     * 相交链表
+     */
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        int a = 0, b = 0;
+        ListNode pa = headA;
+        ListNode pb = headB;
+        while (pa != null) {
+            a++;
+            pa = pa.next;
+        }
+        while (pb != null) {
+            b++;
+            pb = pb.next;
+        }
+        int k;
+        if (a > b) {
+            k = a - b;
+            while (k-- > 0) {
+                headA = headA.next;
+            }
+        } else {
+            k = b - a;
+            while (k-- > 0) {
+                headB = headB.next;
+            }
+        }
+        while (headA != null && headB != null) {
+            if (headA == headB) {
+                return headA;
+            } else {
+                headA = headA.next;
+                headB = headB.next;
+            }
+        }
+        return null;
+    }
+
     /**
      * 环形链表
      */
@@ -51,22 +109,6 @@ public class ListSolution {
         }
         // 返回标记节点的后一个节点
         return result.next;
-    }
-
-    public static void main(String[] args) {
-        ListSolution solution = new ListSolution();
-        // ListNode list1 = solution.buildNode(new int[]{
-        //     1
-        // });
-        // ListNode list2 = solution.buildNode(new int[]{
-        //     2
-        // });
-        // ListNode listNode = solution.mergeTwoLists(list1, list2);
-        // solution.print(listNode);
-        ListNode head = solution.buildNode(new int[]{
-            3, 2, 0, -4
-        });
-        System.out.println(solution.hasCycle(head));
     }
 
     private void print(ListNode list) {
