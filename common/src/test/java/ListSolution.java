@@ -1,3 +1,6 @@
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class ListSolution {
 
 
@@ -16,7 +19,6 @@ public class ListSolution {
         });
         System.out.println(solution.isPalindrome(head));
     }
-
     /**
      * 回文链表
      */
@@ -39,6 +41,37 @@ public class ListSolution {
             pr = pr.next;
         }
         return true;
+        // Deque<Integer> deque = new LinkedList<>();
+        // ListNode p = head;
+        // int cnt = 0;
+        // while (p != null) {
+        //     cnt++;
+        //     p = p.next;
+        // }
+        // p = head;
+        // int nextStart;
+        // int firstEnd;
+        // firstEnd = cnt / 2;
+        // if (cnt % 2 == 0) {
+        //     nextStart = cnt / 2 + 1;
+        // } else {
+        //     nextStart = cnt / 2 + 2;
+        // }
+        // int index = 1;
+        // while (index <= cnt) {
+        //     if (index <= firstEnd) {
+        //         deque.add(p.val);
+        //     }
+        //     if (index >= nextStart) {
+        //         Integer last = deque.removeLast();
+        //         if (last != p.val) {
+        //             return false;
+        //         }
+        //     }
+        //     index++;
+        //     p = p.next;
+        // }
+        // return deque.isEmpty();
     }
 
     /**
