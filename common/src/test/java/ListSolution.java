@@ -12,11 +12,38 @@ public class ListSolution {
         // ListNode listNode = solution.mergeTwoLists(list1, list2);
         // solution.print(listNode);
         ListNode head = solution.buildNode(new int[]{
-            3, 2, 0, -4
+            1
         });
-        System.out.println(solution.hasCycle(head));
+        System.out.println(solution.isPalindrome(head));
     }
 
+    /**
+     * 回文链表
+     */
+    public boolean isPalindrome(ListNode head) {
+        ListNode p = head;
+        ListNode rh = new ListNode();
+        ListNode pr = rh;
+        while (p != null) {
+            pr.next = new ListNode(p.val);
+            pr = pr.next;
+            p = p.next;
+        }
+        pr = reverseList(rh.next);
+        p = head;
+        while (p != null && pr != null) {
+            if (p.val != pr.val) {
+                return false;
+            }
+            p = p.next;
+            pr = pr.next;
+        }
+        return true;
+    }
+
+    /**
+     * 反转链表
+     */
     public ListNode reverseList(ListNode head) {
         ListNode result = new ListNode();
         ListNode p = head;
