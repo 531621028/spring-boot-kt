@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -5,12 +6,50 @@ public class ArraySolution {
 
     public static void main(String[] args) {
         ArraySolution solution = new ArraySolution();
-        int[] prices = new int[]{
-            // 7, 1, 5, 3, 6, 4
-            7, 6, 4, 3, 1
+        // int[] prices = new int[]{
+        //     // 7, 1, 5, 3, 6, 4
+        //     7, 6, 4, 3, 1
+        // };
+        // System.out.println(solution.majorityElement(prices));
+        int[] nums = new int[]{
+            0, 1, 0, 3, 12
+            // 1, 0, 1
+            // 4, 2, 4, 0, 0, 3, 0, 5, 1, 0
         };
-        System.out.println(solution.majorityElement(prices));
+        solution.moveZeroes(nums);
+        System.out.println(Arrays.toString(nums));
     }
+
+    /**
+     * 移动零
+     */
+    public void moveZeroes(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return;
+        }
+        int i = 0, j = 0;
+        while (i < nums.length && j < nums.length) {
+            while (i < nums.length && nums[i] != 0) {
+                i++;
+            }
+            j = i + 1;
+            while (j < nums.length && nums[j] == 0) {
+                j++;
+            }
+            if (i < nums.length && j < nums.length) {
+                swap(nums, i, j);
+                i++;
+                j++;
+            }
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
+    }
+
 
     /**
      * 多数元素
