@@ -9,8 +9,23 @@ public class BitSolution {
             4, 1, 2, 1, 2
         };
         System.out.println(bitSolution.singleNumber(nums));
+        System.out.println(bitSolution.hammingDistance(1, 4));
+        System.out.println(bitSolution.hammingDistance(1, 3));
         System.out.println(Arrays.toString(bitSolution.countBits(2)));
         System.out.println(Arrays.toString(bitSolution.countBits(5)));
+    }
+
+    /**
+     * 两个数字对应二进制位不同的位置的数目
+     */
+    public int hammingDistance(int x, int y) {
+        int num = x ^ y;
+        int cnt = 0;
+        while (num != 0) {
+            cnt++;
+            num = num & (num - 1);
+        }
+        return cnt;
     }
 
     /**
