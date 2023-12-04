@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ArraySolution {
@@ -14,10 +16,28 @@ public class ArraySolution {
         int[] nums = new int[]{
             // 0, 1, 0, 3, 12
             // 1, 0, 1
-            4, 2, 4, 0, 0, 3, 0, 5, 1, 0
+            1, 1
         };
         solution.moveZeroes(nums);
-        System.out.println(Arrays.toString(nums));
+        System.out.println(Arrays.toString(solution.findDisappearedNumbers(nums).toArray()));
+    }
+
+
+    /**
+     * 数组中消失的数字
+     */
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> result = new ArrayList<>();
+        int[] record = new int[nums.length];
+        for (int num : nums) {
+            record[num - 1] = 1;
+        }
+        for (int i = 0; i < record.length; i++) {
+            if (record[i] == 0) {
+                result.add(i + 1);
+            }
+        }
+        return result;
     }
 
     /**
@@ -29,7 +49,7 @@ public class ArraySolution {
         }
         int j = 0;
         for (int i = 0; i < nums.length; i++) {
-            if(nums[i] != 0){
+            if (nums[i] != 0) {
                 swap(nums, i, j);
                 j++;
             }
