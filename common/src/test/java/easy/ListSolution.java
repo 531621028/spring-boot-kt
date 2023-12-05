@@ -1,5 +1,4 @@
-import java.util.Deque;
-import java.util.LinkedList;
+package easy;
 
 public class ListSolution {
 

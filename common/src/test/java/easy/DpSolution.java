@@ -1,3 +1,5 @@
+package easy;
+
 public class DpSolution {
 
     public static void main(String[] args) {
