@@ -1,5 +1,7 @@
 package easy;
 
+import data.ListNode;
+
 public class ListSolution {
 
 
@@ -13,11 +15,12 @@ public class ListSolution {
         // });
         // ListNode listNode = solution.mergeTwoLists(list1, list2);
         // solution.print(listNode);
-        ListNode head = solution.buildNode(new int[]{
+        ListNode head = ListNode.buildNode(new int[]{
             1
         });
         System.out.println(solution.isPalindrome(head));
     }
+
     /**
      * 回文链表
      */
@@ -180,45 +183,5 @@ public class ListSolution {
         }
         // 返回标记节点的后一个节点
         return result.next;
-    }
-
-    private void print(ListNode list) {
-        StringBuilder sb = new StringBuilder();
-        while (list != null) {
-            sb.append(list.val).append(",");
-            list = list.next;
-        }
-        System.out.println(sb);
-    }
-
-    private ListNode buildNode(int[] nums) {
-        if (nums == null || nums.length <= 0) {
-            return null;
-        }
-        ListNode root = new ListNode(nums[0]);
-        ListNode p = root;
-        for (int i = 1; i < nums.length; i++) {
-            p.next = new ListNode(nums[i]);
-            p = p.next;
-        }
-        return root;
-    }
-
-    public static class ListNode {
-
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
     }
 }
