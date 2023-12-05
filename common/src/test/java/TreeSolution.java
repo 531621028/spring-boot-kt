@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -10,12 +11,27 @@ public class TreeSolution {
     public static void main(String[] args) {
         TreeSolution solution = new TreeSolution();
         TreeNode root = buildTreeNode(new Integer[]{
-            // 1, 2, 2, null, 3, null, 3
-            3, 9, 20, null, null, 15, 7
+            1, 3, 2, 5
+        });
+        TreeNode root2 = buildTreeNode(new Integer[]{
+            2, 1, 3, null, 4, null, 7
         });
         // System.out.println(Arrays.toString(solution.inorderTraversal(root).toArray()));
         // System.out.println(solution.isSymmetric(root));
-        System.out.println(solution.maxDepth(root));
+        solution.printTree(solution.mergeTrees(root, root2));
+    }
+
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        if (root1 == null) {
+            return root2;
+        }
+        if (root2 == null) {
+            return root1;
+        }
+        root1.val = root1.val + root2.val;
+        root1.left = mergeTrees(root1.left, root2.left);
+        root1.right = mergeTrees(root1.right, root2.right);
+        return root1;
     }
 
     /**
@@ -153,6 +169,55 @@ public class TreeSolution {
             }
         }
         return treeNodes[0];
+    }
+
+    private void printTree(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        Integer[] var = new Integer[(2 << treeLevel(root)) - 1];
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.add(root);
+        int loc = 0;
+        while (!deque.isEmpty()) {
+            TreeNode node = deque.removeFirst();
+            var[loc] = node.val;
+            if (node.left != null) {
+
+                deque.add(node.left);
+            }
+            if (node.right != null) {
+
+                deque.add(node.right);
+            }
+            loc++;
+        }
+        System.out.println(Arrays.toString(var));
+    }
+
+    private int treeLevel(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.add(root);
+        int level = 0;
+        while (!deque.isEmpty()) {
+            level++;
+            Deque<TreeNode> nextLevel = new LinkedList<>();
+            while (!deque.isEmpty()) {
+                TreeNode node = deque.removeFirst();
+                if (node.left != null) {
+                    nextLevel.add(node.left);
+                }
+                if (node.right != null) {
+                    nextLevel.add(node.right);
+                }
+            }
+            deque = nextLevel;
+        }
+        return level;
+
     }
 
     public static class TreeNode {
