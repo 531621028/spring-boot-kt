@@ -175,20 +175,25 @@ public class TreeSolution {
         if (root == null) {
             return;
         }
-        Integer[] var = new Integer[(2 << treeLevel(root)) - 1];
+        Integer[] var = new Integer[(2 << treeLevel(root) - 1) - 1];
         Deque<TreeNode> deque = new LinkedList<>();
         deque.add(root);
         int loc = 0;
         while (!deque.isEmpty()) {
+            if (loc >= var.length) {
+                break;
+            }
             TreeNode node = deque.removeFirst();
-            var[loc] = node.val;
+            var[loc] = node.val == Integer.MIN_VALUE ? null : node.val;
             if (node.left != null) {
-
                 deque.add(node.left);
+            } else {
+                deque.add(TreeNode.NULL);
             }
             if (node.right != null) {
-
                 deque.add(node.right);
+            } else {
+                deque.add(TreeNode.NULL);
             }
             loc++;
         }
@@ -238,5 +243,7 @@ public class TreeSolution {
             this.left = left;
             this.right = right;
         }
+
+        public static TreeNode NULL = new TreeNode(Integer.MIN_VALUE);
     }
 }
