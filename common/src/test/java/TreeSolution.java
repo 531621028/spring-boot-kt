@@ -11,16 +11,42 @@ public class TreeSolution {
     public static void main(String[] args) {
         TreeSolution solution = new TreeSolution();
         TreeNode root = buildTreeNode(new Integer[]{
-            1, 3, 2, 5
+            1,2
         });
-        TreeNode root2 = buildTreeNode(new Integer[]{
-            2, 1, 3, null, 4, null, 7
-        });
+        // TreeNode root2 = buildTreeNode(new Integer[]{
+        //     2, 1, 3, null, 4, null, 7
+        // });
         // System.out.println(Arrays.toString(solution.inorderTraversal(root).toArray()));
         // System.out.println(solution.isSymmetric(root));
-        solution.printTree(solution.mergeTrees(root, root2));
+        // solution.printTree(solution.mergeTrees(root, root2));
+        System.out.println(solution.diameterOfBinaryTree(root));
     }
 
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int depthLeft = 0;
+        int depthRight = 0;
+        int diameterLeft = 0;
+        int diameterRight = 0;
+        if (root.left != null) {
+            depthLeft = treeLevel(root.left);
+            diameterLeft = diameterOfBinaryTree(root.left);
+        }
+        if (root.right != null) {
+            depthRight = treeLevel(root.right);
+            diameterRight = diameterOfBinaryTree(root.right);
+        }
+        int diameterRoot = depthLeft + depthRight;
+        int diameter = Math.max(diameterLeft, diameterRight);
+        return Math.max(diameter, diameterRoot);
+    }
+
+    /**
+     * 合并二叉树
+     */
     public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
         if (root1 == null) {
             return root2;
