@@ -7,13 +7,39 @@ public class ListSolution {
 
     public static void main(String[] args) {
         ListNode l1 = ListNode.buildNode(new int[]{
-            9, 9, 9, 9, 9, 9, 9
+            1, 2, 3, 4, 5
         });
-        ListNode l2 = ListNode.buildNode(new int[]{
-            9, 9, 9, 9
-        });
+        // ListNode l2 = ListNode.buildNode(new int[]{
+        //     9, 9, 9, 9
+        // });
         ListSolution solution = new ListSolution();
-        ListNode.print(solution.addTwoNumbers(l1, l2));
+        ListNode.print(solution.removeNthFromEnd(l1, 2));
+    }
+
+
+    /**
+     * 删除链表的倒数第N个节点
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if (head == null) {
+            return null;
+        }
+        ListNode fast = head;
+        int j = n;
+        while (j > 0) {
+            fast = fast.next;
+            j--;
+        }
+        if (fast == null) {
+            return head.next;
+        }
+        ListNode low = head;
+        while (fast.next != null) {
+            fast = fast.next;
+            low = low.next;
+        }
+        low.next = low.next.next;
+        return head;
     }
 
     /**
