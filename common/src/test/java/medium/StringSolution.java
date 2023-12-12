@@ -18,7 +18,39 @@ public class StringSolution {
         // // System.out.println(solution.longestPalindrome("pwwkew"));
         // // System.out.println(solution.longestPalindrome("ccaabb"));
         // System.out.println(solution.longestPalindrome("babad"));
-        System.out.println(Arrays.toString(solution.letterCombinations("234").toArray()));
+        // System.out.println(Arrays.toString(solution.letterCombinations("234").toArray()));
+        System.out.println(Arrays.toString(solution.generateParenthesis(2).toArray()));
+    }
+
+
+    /**
+     * 括号生成
+     */
+    public List<String> generateParenthesis(int n) {
+        if (n == 1) {
+            return Collections.singletonList("()");
+        }
+        List<String> ans = new ArrayList<>();
+        backTrack(ans, new StringBuilder(), 0, 0, n);
+        return ans;
+
+    }
+
+    public void backTrack(List<String> ans, StringBuilder cur, int open, int close, int max) {
+        if (cur.length() == max * 2) {
+            ans.add(cur.toString());
+            return;
+        }
+        if (open < max) {
+            cur.append("(");
+            backTrack(ans, cur, open + 1, close, max);
+            cur.deleteCharAt(cur.length() - 1);
+        }
+        if (close < open) {
+            cur.append(")");
+            backTrack(ans, cur, open, close + 1, max);
+            cur.deleteCharAt(cur.length() - 1);
+        }
     }
 
     /**
