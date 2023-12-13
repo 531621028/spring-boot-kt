@@ -20,11 +20,51 @@ public class ArraySolution {
         // System.out.println(solution.maxArea(arrays));
         // System.out.println(Arrays.toString(solution.threeSum(arrays).toArray()));
         int[] nums = new int[]{
-            // 1, 3, 2
-            4, 2, 0, 2, 3, 2, 0
+            // 1, 3
+            // 5, 1, 3
+            // 4, 5, 6, 7, 8, 1, 2, 3
+            // 5, 1, 2, 3, 4
+            // 4, 5, 6, 7, 0, 1, 2
+            8,9,2,3,4
         };
-        solution.nextPermutation(nums);
-        System.out.println(Arrays.toString(nums));
+        // solution.nextPermutation(nums);
+        // System.out.println(Arrays.toString(nums));
+        System.out.println(solution.search(nums, 9));
+    }
+
+    /**
+     * 搜索旋转排序数组
+     */
+    public int search(int[] nums, int target) {
+        return search(nums, 0, nums.length - 1, target);
+    }
+
+    int search(int[] nums, int start, int end, int target) {
+        if (start == end) {
+            if (nums[start] == target) {
+                return start;
+            } else {
+                return -1;
+            }
+        }
+        int mid = (start + end) / 2;
+        if (nums[mid] == target) {
+            return mid;
+        } else if (nums[mid] > target) {
+            if (nums[mid] < nums[end] || nums[start] <= target) {
+                return search(nums, start, mid, target);
+            } else {
+                return search(nums, mid + 1, end, target);
+            }
+        } else if (nums[mid] < target) {
+            if (target <= nums[end] || nums[start] < nums[mid]) {
+                return search(nums, mid + 1, end, target);
+            } else {
+                return search(nums, start, mid, target);
+            }
+        } else {
+            return -1;
+        }
     }
 
 
