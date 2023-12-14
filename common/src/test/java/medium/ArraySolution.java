@@ -20,16 +20,49 @@ public class ArraySolution {
         // System.out.println(solution.maxArea(arrays));
         // System.out.println(Arrays.toString(solution.threeSum(arrays).toArray()));
         int[] nums = new int[]{
-            // 1, 3
-            // 5, 1, 3
-            // 4, 5, 6, 7, 8, 1, 2, 3
-            // 5, 1, 2, 3, 4
-            // 4, 5, 6, 7, 0, 1, 2
-            8,9,2,3,4
+            5, 7, 7, 8, 8, 10
         };
         // solution.nextPermutation(nums);
         // System.out.println(Arrays.toString(nums));
-        System.out.println(solution.search(nums, 9));
+        // System.out.println(solution.search(nums, 9));
+
+        System.out.println(Arrays.toString(solution.searchRange(nums, 6)));
+    }
+
+    /**
+     * 搜索第一个和最后一个的位置
+     */
+    public int[] searchRange(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return new int[]{-1, -1};
+        }
+        return searchRange(nums, 0, nums.length - 1, target);
+    }
+
+    public int[] searchRange(int[] nums, int start, int end, int target) {
+        if (start == end && nums[start] != target) {
+            return new int[]{-1, -1};
+        }
+        int mid = (start + end) / 2;
+        if (nums[mid] == target) {
+            return findRange(nums, mid, target);
+        } else if (nums[mid] > target) {
+            return searchRange(nums, start, mid, target);
+        } else {
+            return searchRange(nums, mid + 1, end, target);
+        }
+    }
+
+    private int[] findRange(int[] nums, int find, int target) {
+        int i = find;
+        while (i < nums.length && nums[i] == target) {
+            i++;
+        }
+        int j = find;
+        while (j >= 0 && nums[j] == target) {
+            j--;
+        }
+        return new int[]{j + 1, i - 1};
     }
 
     /**
