@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class ArraySolution {
 
@@ -22,15 +24,45 @@ public class ArraySolution {
         // System.out.println(solution.maxArea(arrays));
         // System.out.println(Arrays.toString(solution.threeSum(arrays).toArray()));
         int[] nums = new int[]{
-            2, 3, 6, 7
+            1
         };
         // solution.nextPermutation(nums);
         // System.out.println(Arrays.toString(nums));
         // System.out.println(solution.search(nums, 9));
         // System.out.println(Arrays.toString(solution.searchRange(nums, 6)));
-        System.out.println(Arrays.toString(solution.combinationSum(nums, 8).toArray()));
+        // System.out.println(Arrays.toString(solution.combinationSum(nums, 8).toArray()));
+        System.out.println(Arrays.toString(solution.permute(nums).toArray()));
     }
 
+
+    /**
+     * 全排列
+     */
+    public List<List<Integer>> permute(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return Collections.emptyList();
+        }
+        List<List<Integer>> result = new ArrayList<>();
+        dfsPermute(nums, new LinkedHashSet<>(), result);
+        return result;
+    }
+
+    private void dfsPermute(int[] nums, Set<Integer> path, List<List<Integer>> res) {
+        for (int candidate : nums) {
+            if (!path.contains(candidate)) {
+                path.add(candidate);
+                dfsPermute(nums, path, res);
+                path.remove(candidate);
+            }
+        }
+        if (path.size() == nums.length) {
+            res.add(new ArrayList<>(path));
+        }
+    }
+
+    /**
+     * 组合的总和
+     */
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
         if (candidates == null || candidates.length == 0) {
