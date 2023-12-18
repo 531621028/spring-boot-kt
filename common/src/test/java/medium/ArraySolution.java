@@ -3,6 +3,8 @@ package medium;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ArraySolution {
@@ -20,13 +22,37 @@ public class ArraySolution {
         // System.out.println(solution.maxArea(arrays));
         // System.out.println(Arrays.toString(solution.threeSum(arrays).toArray()));
         int[] nums = new int[]{
-            5, 7, 7, 8, 8, 10
+            2, 3, 6, 7
         };
         // solution.nextPermutation(nums);
         // System.out.println(Arrays.toString(nums));
         // System.out.println(solution.search(nums, 9));
+        // System.out.println(Arrays.toString(solution.searchRange(nums, 6)));
+        System.out.println(Arrays.toString(solution.combinationSum(nums, 8).toArray()));
+    }
 
-        System.out.println(Arrays.toString(solution.searchRange(nums, 6)));
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (candidates == null || candidates.length == 0) {
+            return Collections.emptyList();
+        }
+        dfsCombination(candidates, 0, target, new LinkedList<>(), result);
+        return result;
+    }
+
+    public void dfsCombination(int[] candidates, int start, int target, Deque<Integer> path, List<List<Integer>> res) {
+        if (target < 0) {
+            return;
+        }
+        if (target == 0) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        for (int i = start; i < candidates.length; i++) {
+            path.addLast(candidates[i]);
+            dfsCombination(candidates, i, target - candidates[i], path, res);
+            path.removeLast();
+        }
     }
 
     /**
