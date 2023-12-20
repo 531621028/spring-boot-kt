@@ -19,7 +19,36 @@ public class StringSolution {
         // // System.out.println(solution.longestPalindrome("ccaabb"));
         // System.out.println(solution.longestPalindrome("babad"));
         // System.out.println(Arrays.toString(solution.letterCombinations("234").toArray()));
-        System.out.println(Arrays.toString(solution.generateParenthesis(2).toArray()));
+        System.out.println(Arrays.toString(solution.groupAnagrams(new String[]{
+            ""
+        }).toArray()));
+    }
+
+    /**
+     * 字母异位词分组
+     */
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return Collections.emptyList();
+        }
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            int[] count = new int[26];
+            for (char c : str.toCharArray()) {
+                int index = c - 'a';
+                count[index] = count[index] + 1;
+            }
+            StringBuilder sb = new StringBuilder("");
+            for (int i = 0; i < count.length; i++) {
+                if (count[i] != 0) {
+                    sb.append((char) (i + 'a')).append(count[i]);
+                }
+            }
+            map.putIfAbsent(sb.toString(), new ArrayList<>());
+            List<String> list = map.get(sb.toString());
+            list.add(str);
+        }
+        return new ArrayList<>(map.values());
     }
 
 
