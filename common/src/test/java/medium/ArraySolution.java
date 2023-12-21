@@ -3,6 +3,7 @@ package medium;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -23,15 +24,54 @@ public class ArraySolution {
         // };
         // System.out.println(solution.maxArea(arrays));
         // System.out.println(Arrays.toString(solution.threeSum(arrays).toArray()));
-        int[] nums = new int[]{
-            1
-        };
+        // int[] nums = new int[]{
+        //     1
+        // };
         // solution.nextPermutation(nums);
         // System.out.println(Arrays.toString(nums));
         // System.out.println(solution.search(nums, 9));
         // System.out.println(Arrays.toString(solution.searchRange(nums, 6)));
         // System.out.println(Arrays.toString(solution.combinationSum(nums, 8).toArray()));
-        System.out.println(Arrays.toString(solution.permute(nums).toArray()));
+        // System.out.println(Arrays.toString(solution.permute(nums).toArray()));
+
+        int[][] intervals = new int[][]{
+            {1, 4}, {2, 3}, {8, 10}, {15, 18}
+        };
+        System.out.println(Arrays.toString(solution.merge(intervals)));
+    }
+
+    public int[][] merge(int[][] intervals) {
+        List<List<Integer>> resultList = new ArrayList<>();
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+        int start = intervals[0][0];
+        int end = intervals[0][1];
+        for (int i = 1; i < intervals.length; i++) {
+            int[] interval = intervals[i];
+            if (end < interval[0]) {
+                List<Integer> list = new ArrayList<>();
+                list.add(start);
+                list.add(end);
+                resultList.add(list);
+                start = interval[0];
+            }
+            if (interval[1] > end) {
+                end = interval[1];
+            }
+        }
+        List<Integer> last = new ArrayList<>();
+        last.add(start);
+        last.add(end);
+        resultList.add(last);
+        int[][] result = new int[resultList.size()][2];
+        for (int i = 0; i < resultList.size(); i++) {
+            List<Integer> list = resultList.get(i);
+            result[i] = new int[]{
+                list.get(0),
+                list.get(1)
+            };
+
+        }
+        return result;
     }
 
 
