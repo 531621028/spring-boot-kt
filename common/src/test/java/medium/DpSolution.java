@@ -9,9 +9,32 @@ public class DpSolution {
         //     2, 3, 1, 1, 4
         // };
         // System.out.println(solution.canJump(prices));
-        System.out.println(solution.uniquePaths(3, 7));
+        int[][] grid = new int[][]{
+            {1, 3, 1}, {1, 5, 1}, {4, 2, 1}
+        };
+        System.out.println(solution.minPathSum(grid));
     }
 
+    public int minPathSum(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int pathSum = grid[m - 1][n - 1];
+        for (int i = m - 2; i >= 0; i--) {
+            pathSum = pathSum + grid[i][n - 1];
+            grid[i][n - 1] = pathSum;
+        }
+        pathSum = grid[m - 1][n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            pathSum = pathSum + grid[m - 1][i];
+            grid[m - 1][i] = pathSum;
+        }
+        for (int i = m - 2; i >= 0; i--) {
+            for (int j = n - 2; j >= 0; j--) {
+                grid[i][j] = Math.min(grid[i + 1][j], grid[i][j + 1]) + grid[i][j];
+            }
+        }
+        return grid[0][0];
+    }
 
     /**
      * 不同的路径
