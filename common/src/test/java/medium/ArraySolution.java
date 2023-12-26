@@ -33,11 +33,50 @@ public class ArraySolution {
         // System.out.println(Arrays.toString(solution.searchRange(nums, 6)));
         // System.out.println(Arrays.toString(solution.combinationSum(nums, 8).toArray()));
         // System.out.println(Arrays.toString(solution.permute(nums).toArray()));
-
-        int[][] intervals = new int[][]{
-            {1, 4}, {2, 3}, {8, 10}, {15, 18}
+        //
+        // int[][] intervals = new int[][]{
+        //     {1, 4}, {2, 3}, {8, 10}, {15, 18}
+        // };
+        // System.out.println(Arrays.toString(solution.merge(intervals)));
+        int[] nums = new int[]{
+            2, 0, 1
         };
-        System.out.println(Arrays.toString(solution.merge(intervals)));
+        solution.sortColors(nums);
+        System.out.println(Arrays.toString(nums));
+    }
+
+    /**
+     * 颜色分类
+     */
+    public void sortColors(int[] nums) {
+        quickSort(nums, 0, nums.length - 1);
+    }
+
+    private void quickSort(int[] nums, int low, int high) {
+        if (low < high) {
+            int partitionIndex = partition(nums, low, high);
+            quickSort(nums, low, partitionIndex - 1);
+            quickSort(nums, partitionIndex + 1, high);
+        }
+    }
+
+    private int partition(int[] nums, int low, int high) {
+        int pivot = nums[high];
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (nums[j] < pivot) {
+                i++;
+                swap(nums, i, j);
+            }
+        }
+        swap(nums, i + 1, high);
+        return i + 1;
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[j];
+        nums[j] = nums[i];
+        nums[i] = temp;
     }
 
     public int[][] merge(int[][] intervals) {
@@ -73,7 +112,6 @@ public class ArraySolution {
         }
         return result;
     }
-
 
     /**
      * 全排列
@@ -225,12 +263,6 @@ public class ArraySolution {
 
         }
         Arrays.sort(nums);
-    }
-
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[j];
-        nums[j] = nums[i];
-        nums[i] = temp;
     }
 
     /**
