@@ -21,6 +21,11 @@
             <groupId>com.hkk.spring</groupId>
             <artifactId>repository</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.6.3</version>
+        </dependency>
     </dependencies>
 
 </project>

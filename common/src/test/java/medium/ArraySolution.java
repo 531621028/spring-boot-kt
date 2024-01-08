@@ -45,6 +45,11 @@ public class ArraySolution {
         System.out.println(Arrays.toString(nums));
     }
 
+
+    public List<List<Integer>> subsets(int[] nums) {
+        return null;
+    }
+
     /**
      * 颜色分类
      */
